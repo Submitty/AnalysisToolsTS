@@ -1,5 +1,6 @@
 import { program } from 'commander';
-import { Counter, countToken } from './count';
+
+import { countToken, getCounter } from './count';
 import { diagnostics } from './diagnostics';
 import { parseFile } from './parser';
 
@@ -8,24 +9,25 @@ function errorHandler(message: string) {
   process.exit(1);
 }
 
-program
-  .version('1.0.0');
+program.version('1.0.0');
 
 program
   .command('count <language> <counter> <token> <file>')
   .action((language: string, counter: string, token: string, file: string) => {
     const tree = parseFile(language, file);
-    if (!Object.values<string>(Counter).includes(counter)) {
-      errorHandler(`Unknown counter: ${counter}`);
+    try {
+      console.log(countToken(tree, getCounter(counter), token));
     }
-    console.log(countToken(tree, Counter[counter], token));
+ catch (error) {
+      errorHandler((error as Error).message);
+    }
   });
 
 program
   .command('diagnostics <language> <file>')
   .action((language: string, file: string) => {
     const tree = parseFile(language, file);
-    console.log(JSON.stringify({[file]: diagnostics(tree, file)}, null, 2));
+    console.log(JSON.stringify({ [file]: diagnostics(tree, file) }, null, 2));
   });
 
 program.parse(process.argv);

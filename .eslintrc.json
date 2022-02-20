@@ -1,0 +1,54 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "node": true
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "import"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier"
+  ],
+  "ignorePatterns": "dist/**/*",
+  "rules": {
+    "@typescript-eslint/array-type": "error",
+    "@typescript-eslint/brace-style": ["error", "stroustrup"],
+    "@typescript-eslint/semi": "error",
+    "curly": ["error", "all"],
+    "brace-style": "off",
+    "import/order": [
+      "error",
+      {
+        "alphabetize": { "caseInsensitive": true, "order": "asc" },
+        "groups": [
+          ["builtin", "external"],
+          "parent",
+          "sibling",
+          "index",
+          "object"
+        ],
+        "newlines-between": "always"
+      }
+    ],
+    "semi": "off"
+  },
+  "overrides": [
+    {
+      "files": ["test/**/*.ts"],
+      "env": {
+        "mocha": true
+      },
+      "parserOptions": {
+        "project": "./tsconfig.test.json"
+      }
+    }
+  ]
+}
