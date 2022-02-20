@@ -8,21 +8,25 @@ import { parseFile } from '../src/parser';
 import { TEST_DATA } from './constants';
 
 describe('countToken', () => {
-  describe('python', () => {
-    const testDir = path.join(TEST_DATA, 'python');
-    const cases: [string, number][] = [
-      ['while', 2],
-      ['for', 3],
-    ];
-    cases.forEach(([token, expected]) => {
-      test(`counting ${token} loops`, () => {
-        expect(
-          countToken(
-            parseFile('python', path.join(testDir, 'loops.py')),
-            Counter.node,
-            token,
-          ),
-        ).to.equal(expected);
+  describe('token', () => {
+    describe('python', () => {
+      const testDir = path.join(TEST_DATA, 'python');
+      const cases: [string, string, number][] = [
+        ['loops.py', 'while', 2],
+        ['loops.py', 'for', 3],
+        ['class.py', 'class', 1],
+        ['class.py', 'def', 4],
+      ];
+      cases.forEach(([file, token, expected]) => {
+        test(`counting token '${token}'`, () => {
+          expect(
+            countToken(
+              parseFile('python', path.join(testDir, file)),
+              Counter.token,
+              token,
+            ),
+          ).to.equal(expected);
+        });
       });
     });
   });
