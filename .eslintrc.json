@@ -38,6 +38,10 @@
         "newlines-between": "always"
       }
     ],
+    "sort-imports": [
+      "error",
+      {"ignoreDeclarationSort": true, "ignoreCase": true }
+    ],
     "semi": "off"
   },
   "overrides": [
