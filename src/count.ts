@@ -1,5 +1,7 @@
 import type { Tree } from 'tree-sitter';
 
+import { convertTokenName } from './utils';
+
 export enum Feature {
   token = 'token',
   node = 'node',
@@ -26,16 +28,21 @@ export function countToken(tree: Tree, feature: Feature, token: string): number 
   const cursor = tree.rootNode.walk();
   while (true) {
     if (cursor.gotoFirstChild() || cursor.gotoNextSibling()) {
-      if (cursor.nodeType.toLowerCase() === tokenLower) {
+      if (convertTokenName(cursor.nodeType).toLowerCase() === tokenLower) {
         count++;
       }
       continue;
     }
     cursor.gotoParent();
+    let hadSibling = true;
     while (!cursor.gotoNextSibling()) {
       if (!cursor.gotoParent()) {
+        hadSibling = false;
         break;
       }
+    }
+    if (hadSibling && convertTokenName(cursor.nodeType).toLowerCase() === tokenLower) {
+      count++;
     }
     if (cursor.currentNode === tree.rootNode) {
       break;
