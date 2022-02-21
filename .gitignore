@@ -3,3 +3,7 @@ node_modules/
 
 # build artifacts
 dist/
+
+# test artifacts
+.nyc_output/
+coverage/

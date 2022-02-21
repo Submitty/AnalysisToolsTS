@@ -7,7 +7,7 @@
     "build": "tsc",
     "lint": "eslint .",
     "lint-staged": "lint-staged",
-    "test": "TS_NODE_PROJECT='./tsconfig.test.json' mocha --require ts-node/register --reporter spec --recursive './test/**/*.spec.ts'",
+    "test": "TS_NODE_PROJECT='./tsconfig.test.json' nyc --reporter lcov mocha --require ts-node/register --reporter spec --recursive './test/**/*.spec.ts'",
     "prepare": "husky install"
   },
   "repository": {
@@ -41,11 +41,15 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.3.4",
     "mocha": "^9.2.1",
+    "nyc": "^15.1.0",
     "prettier": "^2.5.1",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.4"
   },
   "lint-staged": {
-    "*.ts": ["prettier --write", "eslint --fix"]
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }
