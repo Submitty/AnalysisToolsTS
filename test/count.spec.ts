@@ -2,10 +2,29 @@ import { expect } from 'chai';
 import { describe, test } from 'mocha';
 import path from 'path';
 
-import { Counter, countToken } from '../src/count';
+import { Counter, countToken, getCounter } from '../src/count';
 import { parseFile } from '../src/parser';
 
 import { TEST_DATA } from './constants';
+
+describe('getCounter', () => {
+  test('throws error on unknown counter', () => {
+    expect(() => getCounter('invalid')).to.throw('Unknown counter: invalid');
+  });
+
+  const cases: [string, Counter][] = [
+    ['token', Counter.token],
+    ['node', Counter.node],
+    ['call', Counter.call],
+    ['func', Counter.func],
+    ['depth', Counter.depth],
+  ];
+  cases.forEach(([input, expected]) => {
+    test(`returns ${expected} for ${input}`, () => {
+      expect(getCounter(input)).to.equal(expected);
+    });
+  });
+});
 
 describe('countToken', () => {
   describe('token', () => {
