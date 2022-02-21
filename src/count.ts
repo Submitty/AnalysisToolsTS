@@ -1,45 +1,32 @@
 import type { Tree } from 'tree-sitter';
 
-export enum Counter {
+export enum Feature {
   token = 'token',
   node = 'node',
   call = 'call',
-  func = 'func',
-  depth = 'depth',
 }
 
-export function getCounter(type: string): Counter {
+export function getCountableFeature(type: string): Feature {
   switch (type) {
     case 'token':
-      return Counter.token;
+      return Feature.token;
     case 'node':
-      return Counter.node;
+      return Feature.node;
     case 'call':
-      return Counter.call;
-    case 'func':
-      return Counter.func;
-    case 'depth':
-      return Counter.depth;
+      return Feature.call;
     default:
-      throw new Error(`Unknown counter: ${type}`);
+      throw new Error(`Unknown countable feature: ${type}`);
   }
 }
 
-export function countToken(tree: Tree, counter: Counter, token: string): number {
+export function countToken(tree: Tree, feature: Feature, token: string): number {
   const tokenLower = token.toLowerCase();
   let count = 0;
 
   const cursor = tree.rootNode.walk();
-  let continueLoop = true;
-  while (continueLoop) {
-    if (cursor.gotoFirstChild()) {
+  while (true) {
+    if (cursor.gotoFirstChild() || cursor.gotoNextSibling()) {
       if (cursor.nodeType.toLowerCase() === tokenLower) {
-        count++;
-      }
-      continue;
-    }
-    if (cursor.gotoNextSibling()) {
-      if (cursor.nodeType === tokenLower) {
         count++;
       }
       continue;
@@ -51,7 +38,7 @@ export function countToken(tree: Tree, counter: Counter, token: string): number 
       }
     }
     if (cursor.currentNode === tree.rootNode) {
-      continueLoop = false;
+      break;
     }
   }
   return count;

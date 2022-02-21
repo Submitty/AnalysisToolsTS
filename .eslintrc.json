@@ -8,7 +8,8 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "import"
+    "import",
+    "prettier"
   ],
   "extends": [
     "eslint:recommended",
@@ -17,13 +18,11 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
   ],
-  "ignorePatterns": "dist/**/*",
   "rules": {
+    "prettier/prettier": "error",
     "@typescript-eslint/array-type": "error",
-    "@typescript-eslint/brace-style": ["error", "stroustrup"],
     "@typescript-eslint/semi": "error",
     "curly": ["error", "all"],
-    "brace-style": "off",
     "import/order": [
       "error",
       {
@@ -38,12 +37,14 @@
         "newlines-between": "always"
       }
     ],
+    "no-constant-condition": "off",
     "sort-imports": [
       "error",
       {"ignoreDeclarationSort": true, "ignoreCase": true }
     ],
     "semi": "off"
   },
+  "ignorePatterns": "test/data/**/*",
   "overrides": [
     {
       "files": ["test/**/*.ts"],
