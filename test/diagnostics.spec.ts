@@ -62,5 +62,17 @@ describe('diagnostics', () => {
         ],
       });
     });
+
+    test('find all colon tokens', () => {
+      const { tokens } = diagnostics(
+        parseFile(Language.python, path.join(TEST_DATA, 'python', 'operators.py')),
+      );
+      expect(
+        tokens.reduce((acc, token) => {
+          acc += token.token === 'Colon' ? 1 : 0;
+          return acc;
+        }, 0),
+      ).to.deep.equal(7);
+    });
   });
 });
