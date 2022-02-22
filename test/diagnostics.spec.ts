@@ -63,6 +63,8 @@ describe('diagnostics', () => {
       });
     });
 
+    // Testing that we find tokens that are at end of lines, after tokens with
+    // children
     test('find all colon tokens', () => {
       const { tokens } = diagnostics(
         parseFile(Language.python, path.join(TEST_DATA, 'python', 'operators.py')),

@@ -28,7 +28,10 @@ export function countToken(tree: Tree, feature: Feature, token: string): number 
   const cursor = tree.rootNode.walk();
   while (true) {
     if (cursor.gotoFirstChild() || cursor.gotoNextSibling()) {
-      if (convertTokenName(cursor.nodeType).toLowerCase() === tokenLower) {
+      if (
+        feature === Feature.token &&
+        convertTokenName(cursor.nodeType).toLowerCase() === tokenLower
+      ) {
         count++;
       }
       continue;
@@ -41,7 +44,11 @@ export function countToken(tree: Tree, feature: Feature, token: string): number 
         break;
       }
     }
-    if (hadSibling && convertTokenName(cursor.nodeType).toLowerCase() === tokenLower) {
+    if (
+      feature === Feature.token &&
+      hadSibling &&
+      convertTokenName(cursor.nodeType).toLowerCase() === tokenLower
+    ) {
       count++;
     }
     if (cursor.currentNode === tree.rootNode) {
