@@ -57,6 +57,9 @@ done
 
 ########################################################################
 
+# boost
+apt-get install -y libboost-all-dev
+
 # build tree sitter library
 pushd "${VENDOR_DIR}"/tree-sitter
 
