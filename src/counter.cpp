@@ -4,9 +4,7 @@ extern "C" {
     #include <tree_sitter/api.h>
 }
 
-using namespace std;
-
-Counter::Counter(Parser* parser, Countable countable, string feature, vector<string>& files)
+Counter::Counter(Parser* parser, Countable countable, std::string feature, std::vector<std::string>& files)
   : parser(parser)
   , countable(countable)
   , feature(feature)
@@ -57,5 +55,5 @@ void Counter::count_feature() {
           }
       }
     }
-    std::cout << count << "\n";
+    std::cout << count << std::endl;
 }

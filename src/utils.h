@@ -1,22 +1,16 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <boost/filesystem.hpp>
-#include <boost/range/iterator_range.hpp>
-#include <regex>
 #include <vector>
 #include "parser.h"
 #include "counter.h"
 
-using namespace std;
-using namespace boost::filesystem;
+void find_files(std::string file_pattern, std::vector<std::string>& files);
 
-void find_files(string file_pattern, vector<string>& files);
+Language get_language(std::string arg);
 
-Language get_language(string arg);
+Countable get_countable(std::string arg);
 
-Countable get_countable(string arg);
-
-void parse_args(int argc, char *argv[], Language& lang, Countable& countable, string& feature, vector<string>& files);
+void parse_args(int argc, char *argv[], Language& lang, Countable& countable, std::string& feature, std::vector<std::string>& files);
 
 #endif

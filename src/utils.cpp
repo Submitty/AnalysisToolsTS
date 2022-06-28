@@ -6,33 +6,30 @@
 #include "parser.h"
 #include "counter.h"
 
-using namespace std;
-using namespace boost::filesystem;
-
-void find_files(string file_pattern, vector<string>& files) {
-  regex pattern (file_pattern);
+void find_files(std::string file_pattern, std::vector<std::string>& files) {
+  std::regex pattern (file_pattern);
   for (auto& entry : boost::make_iterator_range(boost::filesystem::directory_iterator(boost::filesystem::current_path()))) {
-      stringstream ss;
+      std::stringstream ss;
       ss << entry.path().filename().string();
-      string filename = ss.str();
+      std::string filename = ss.str();
       if (regex_match(filename, pattern) && is_regular_file(entry.path())) {
           files.push_back(filename);
       }
   }
 }
 
-Language get_language(string arg) {
+Language get_language(std::string arg) {
   if (arg == "python" || arg == "py") {
     return PYTHON;
   }
   else if (arg == "c") {
     return C;
   }
-  cout << "Invalid language" << endl;
+  std::cout << "Invalid language" << std::endl;
   exit (EXIT_FAILURE);
 }
 
-Countable get_countable(string arg) {
+Countable get_countable(std::string arg) {
   if (arg == "token") {
     return token;
   }
@@ -42,13 +39,13 @@ Countable get_countable(string arg) {
   else if (arg == "call") {
     return call;
   }
-  cout << "Invalid language" << endl;
+  std::cout << "Invalid language" << std::endl;
   exit (EXIT_FAILURE);
 }
 
-void parse_args(int argc, char *argv[], Language& lang, Countable& countable, string& feature, vector<string>& files) {
+void parse_args(int argc, char *argv[], Language& lang, Countable& countable, std::string& feature, std::vector<std::string>& files) {
   if (argc != 6) {
-    cout << "Require more arguements" << endl;
+    std::cout << "Require more arguements" << std::endl;
     exit(EXIT_FAILURE);
   }
   for (size_t i = 1; i < argc; i++) {
@@ -71,7 +68,7 @@ void parse_args(int argc, char *argv[], Language& lang, Countable& countable, st
       find_files(argv[i], files);
       continue;
     }
-    cout << "Invalid arguement at index " << i  << " " << argv[i] << endl;
+    std::cout << "Invalid arguement at index " << i  << " " << argv[i] << std::endl;
     exit(EXIT_FAILURE);
   }
 }
