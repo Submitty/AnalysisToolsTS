@@ -12,12 +12,12 @@ Parser::Parser(Language lang) {
 }
 
 TSTree* Parser::parse_file(string& file) {
-    string source_code = read_file(file);
+    cur_code = read_file(file);
     TSTree *tree = ts_parser_parse_string(
             parser,
             NULL,
-            source_code.c_str(),
-            source_code.length()
+            cur_code.c_str(),
+            cur_code.length()
     );
     return tree;
 }
@@ -30,4 +30,10 @@ string Parser::read_file(const string& path) {
         exit(EXIT_FAILURE);
     }
     return string((istreambuf_iterator<char>(input_file)), istreambuf_iterator<char>());
+}
+
+string Parser::get_identifier(uint32_t start, uint32_t end) {
+    char const *c = cur_code.c_str();
+    string str(c + start, c + end);
+    return str;
 }

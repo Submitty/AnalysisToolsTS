@@ -1,3 +1,6 @@
+#ifndef UTILS_H
+#define UTILS_H
+
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <regex>
@@ -15,3 +18,5 @@ Language get_language(string arg);
 Countable get_countable(string arg);
 
 void parse_args(int argc, char *argv[], Language& lang, Countable& countable, string& feature, vector<string>& files);
+
+#endif

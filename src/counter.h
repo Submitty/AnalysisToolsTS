@@ -1,3 +1,6 @@
+#ifndef COUNTER_H
+#define COUNTER_H
+
 #include <iostream>
 #include "parser.h"
 #include <vector>
@@ -6,9 +9,6 @@ extern "C" {
 }
 
 using namespace std;
-
-#ifndef COUNTER_H
-#define COUNTER_H
 
 enum Countable {
   token,
@@ -26,6 +26,7 @@ class Counter {
         string feature;
         vector<string> files;
         Parser *parser;
+        bool is_parent_call;
         int count = 0;
 };
 
