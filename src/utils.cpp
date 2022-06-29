@@ -6,7 +6,7 @@
 #include "parser.h"
 #include "counter.h"
 
-void find_files(std::string file_pattern, std::vector<std::string>& files) {
+void find_files(const std::string& file_pattern, std::vector<std::string>& files) {
   std::regex pattern (file_pattern);
   for (auto& entry : boost::make_iterator_range(boost::filesystem::directory_iterator(boost::filesystem::current_path()))) {
       std::stringstream ss;
@@ -18,7 +18,7 @@ void find_files(std::string file_pattern, std::vector<std::string>& files) {
   }
 }
 
-Language get_language(std::string arg) {
+Language get_language(const std::string& arg) {
   if (arg == "python" || arg == "py") {
     return PYTHON;
   }
@@ -29,7 +29,7 @@ Language get_language(std::string arg) {
   exit (EXIT_FAILURE);
 }
 
-Countable get_countable(std::string arg) {
+Countable get_countable(const std::string& arg) {
   if (arg == "token") {
     return token;
   }
@@ -45,11 +45,11 @@ Countable get_countable(std::string arg) {
 
 void parse_args(int argc, char *argv[], Language& lang, Countable& countable, std::string& feature, std::vector<std::string>& files) {
   if (argc != 6) {
-    std::cout << "Require more arguements" << std::endl;
+    std::cout << "Require more arguments" << std::endl;
     exit(EXIT_FAILURE);
   }
   for (size_t i = 1; i < argc; i++) {
-    if (i == 1 && (!strcmp(argv[i], "-l") || !strcmp(argv[i], "--language"))) {
+    if (i == 1 && (!strncmp(argv[i], "-l", 2) || !strncmp(argv[i], "--language", 10))) {
       continue;
     }
     else if (i == 2) {

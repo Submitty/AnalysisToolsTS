@@ -7,7 +7,7 @@ extern "C" {
 extern "C" TSLanguage * tree_sitter_python();
 extern "C" TSLanguage * tree_sitter_c();
 
-Parser::Parser(Language lang) {
+Parser::Parser(const Language& lang) {
     parser = ts_parser_new();
     if (lang == PYTHON) {
         ts_parser_set_language(parser, tree_sitter_python());
@@ -17,7 +17,7 @@ Parser::Parser(Language lang) {
     }
 }
 
-TSTree* Parser::parse_file(std::string& file) {
+TSTree* Parser::parse_file(const std::string& file) {
     cur_code = read_file(file);
     TSTree *tree = ts_parser_parse_string(
             parser,
@@ -38,7 +38,7 @@ std::string Parser::read_file(const std::string& path) {
     return std::string((std::istreambuf_iterator<char>(input_file)), std::istreambuf_iterator<char>());
 }
 
-std::string Parser::get_identifier(uint32_t start, uint32_t end) {
+std::string Parser::get_identifier(int start, int end) {
     char const *c = cur_code.c_str();
     std::string str(c + start, c + end);
     return str;

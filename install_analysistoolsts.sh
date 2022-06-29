@@ -14,7 +14,7 @@ if [ "$1" == "local" ] || [ $# -gt 1 ]; then
     VARS="$(dirname "$0")"/local.sh
 fi
 
-source ${VARS}
+source "${VARS}"
 
 echo -e "Installing AnalysisToolsTS... "
 
@@ -39,18 +39,18 @@ do
     if [ -d "${dir}" ]; then
         echo "pulling changes ..."
         # IF THE REPO ALREADY EXISTS...
-        pushd ${dir} > /dev/null
+        pushd "${dir}" || exit
 
         # PULL CHANGES
-        git pull 2> /dev/null
-        popd > /dev/null
+        git pull
+        popd || exit
 
     else
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
-        pushd ${VENDOR_DIR} > /dev/null
-        git clone --depth 1 "https://github.com/tree-sitter/${repo}" 2> /dev/null
-        popd > /dev/null
+        pushd "${VENDOR_DIR}" || exit
+        git clone --depth 1 "https://github.com/tree-sitter/${repo}" 2 || exit
+        popd || exit
 
     fi
 done
@@ -61,11 +61,11 @@ done
 apt-get install -y libboost-all-dev
 
 # build tree sitter library
-pushd "${VENDOR_DIR}"/tree-sitter
+pushd "${VENDOR_DIR}"/tree-sitter || exit
 
 make
 
-popd > /dev/null
+popd || exit
 
 echo "building submitty_count_ts ..."
 
@@ -74,11 +74,11 @@ mkdir -p "${INSTALLATION_DIR}/build"
 
 cmake -S "${INSTALLATION_DIR}" -B "${INSTALLATION_DIR}/build"
 
-pushd "${INSTALLATION_DIR}/build"
+pushd "${INSTALLATION_DIR}/build" || exit
 
 make
 
-popd > /dev/null
+popd || exit
 
 # # change permissions
 chown -R root:root "${INSTALLATION_DIR}"

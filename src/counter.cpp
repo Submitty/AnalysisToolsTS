@@ -4,7 +4,7 @@ extern "C" {
     #include <tree_sitter/api.h>
 }
 
-Counter::Counter(Parser* parser, Countable countable, std::string feature, std::vector<std::string>& files)
+Counter::Counter(Parser* parser, const Countable& countable, const std::string& feature, const std::vector<std::string>& files)
   : parser(parser)
   , countable(countable)
   , feature(feature)
@@ -24,13 +24,13 @@ void Counter::count_feature() {
             const char* type = ts_node_type(cur);
             if (!strcmp("identifier", type) && is_parent_call) {
               is_parent_call = false;
-              uint32_t start = ts_node_start_byte(cur);
-              uint32_t end = ts_node_end_byte(cur);
+              int start = ts_node_start_byte(cur);
+              int end = ts_node_end_byte(cur);
               if (parser->get_identifier(start, end) == feature) {
                 count += 1;
               }
             }
-            if (!strcmp(feature.c_str(), type)) {
+            if (!strncmp(feature.c_str(), type, feature.length())) {
               count += 1;
             }
             if ((!strcmp("call", type) || !strcmp("call_expression", type)) && countable == call) {
@@ -47,7 +47,7 @@ void Counter::count_feature() {
             }
           }
           TSNode cur = ts_tree_cursor_current_node(&cursor);
-          if(had_sibling && !strcmp(feature.c_str(), ts_node_type(cur))) {
+          if(had_sibling && !strncmp(feature.c_str(), ts_node_type(cur), feature.length())) {
             count += 1;
           }
           if (ts_node_is_null(ts_node_parent(cur))) {

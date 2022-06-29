@@ -13,7 +13,7 @@ enum Countable {
 class Counter {
     public:
         void count_feature();
-        Counter(Parser* parser, Countable countable, std::string feature, std::vector<std::string>& files);
+        Counter(Parser* parser, const Countable& countable, const std::string& feature, const std::vector<std::string>& files);
 
     private:
         Countable countable;

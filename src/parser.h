@@ -13,10 +13,10 @@ enum Language {
 
 class Parser {
     public:
-        Parser(Language lang);
-        TSTree* parse_file(std::string& file);
+        explicit Parser(const Language& lang);
+        TSTree* parse_file(const std::string& file);
         std::string read_file(const std::string& path);
-        std::string get_identifier(uint32_t start, uint32_t end);
+        std::string get_identifier(int start, int end);
     private:
         TSParser *parser;
         std::string cur_code;
