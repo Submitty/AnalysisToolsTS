@@ -20,7 +20,7 @@ class Counter {
         std::string feature;
         std::vector<std::string> files;
         Parser *parser;
-        bool is_parent_call;
+        bool is_parent_call = false;
         int count = 0;
 };
 
