@@ -5,11 +5,15 @@ extern "C" {
     #include <tree_sitter/api.h>
 }
 extern "C" TSLanguage * tree_sitter_python();
+extern "C" TSLanguage * tree_sitter_c();
 
 Parser::Parser(Language lang) {
     parser = ts_parser_new();
     if (lang == PYTHON) {
         ts_parser_set_language(parser, tree_sitter_python());
+    }
+    else if (lang == C) {
+        ts_parser_set_language(parser, tree_sitter_c());
     }
 }
 

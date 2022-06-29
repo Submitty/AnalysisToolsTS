@@ -33,7 +33,7 @@ void Counter::count_feature() {
             if (!strcmp(feature.c_str(), type)) {
               count += 1;
             }
-            if (!strcmp("call", type) && countable == call) {
+            if ((!strcmp("call", type) || !strcmp("call_expression", type)) && countable == call) {
               is_parent_call = true;
             }
             continue;

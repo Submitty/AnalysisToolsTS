@@ -4,7 +4,7 @@ project(submitty_count_ts)
 
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 
-add_executable(${PROJECT_NAME} src/main.cpp vendor/tree-sitter-python/src/parser.c src/counter.cpp src/parser.cpp src/utils.cpp vendor/tree-sitter-python/src/scanner.cc)
+add_executable(${PROJECT_NAME} src/main.cpp vendor/tree-sitter-python/src/parser.c vendor/tree-sitter-c/src/parser.c src/counter.cpp src/parser.cpp src/utils.cpp vendor/tree-sitter-python/src/scanner.cc)
 
 include_directories(vendor/tree-sitter/lib/include ${Boost_INCLUDE_DIR})
 
