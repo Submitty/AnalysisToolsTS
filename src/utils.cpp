@@ -39,7 +39,11 @@ Countable get_countable(const std::string& arg) {
   else if (arg == "call") {
     return call;
   }
-  std::cout << "Invalid language" << std::endl;
+  else if (arg == "function") {
+    return function;
+  }
+
+  std::cout << "Invalid countable" << std::endl;
   exit (EXIT_FAILURE);
 }
 

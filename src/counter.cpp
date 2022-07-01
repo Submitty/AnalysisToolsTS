@@ -22,19 +22,27 @@ void Counter::count_feature() {
           if (ts_tree_cursor_goto_first_child(&cursor) || ts_tree_cursor_goto_next_sibling(&cursor)) {
             TSNode cur = ts_tree_cursor_current_node(&cursor);
             const char* type = ts_node_type(cur);
-            if (!strcmp("identifier", type) && is_parent_call) {
-              is_parent_call = false;
+            if (!strcmp("identifier", type) && (is_parent_call || is_parent_function)) {
               int start = ts_node_start_byte(cur);
               int end = ts_node_end_byte(cur);
               if (parser->get_identifier(start, end) == feature) {
                 count += 1;
               }
+              if (is_parent_call) {
+                is_parent_call = false;
+              }
+              if (is_parent_function) {
+                is_parent_function = false;
+              }
             }
-            if (!strncmp(feature.c_str(), type, feature.length())) {
+            if (!strncmp(feature.c_str(), type, strlen(type) > feature.length() ? strlen(type) : feature.length())) {
               count += 1;
             }
             if ((!strcmp("call", type) || !strcmp("call_expression", type)) && countable == call) {
               is_parent_call = true;
+            }
+            if ((!strcmp("function_definition", type)) && countable == function) {
+              is_parent_function = true;
             }
             continue;
           }
@@ -47,7 +55,8 @@ void Counter::count_feature() {
             }
           }
           TSNode cur = ts_tree_cursor_current_node(&cursor);
-          if(had_sibling && !strncmp(feature.c_str(), ts_node_type(cur), feature.length())) {
+          const char* type = ts_node_type(cur);
+          if(had_sibling && !strncmp(feature.c_str(), type, strlen(type) > feature.length() ? strlen(type) : feature.length())) {
             count += 1;
           }
           if (ts_node_is_null(ts_node_parent(cur))) {

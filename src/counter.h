@@ -7,7 +7,8 @@
 enum Countable {
   token,
   node,
-  call
+  call,
+  function
 };
 
 class Counter {
@@ -21,6 +22,7 @@ class Counter {
         std::vector<std::string> files;
         Parser *parser;
         bool is_parent_call = false;
+        bool is_parent_function = false;
         int count = 0;
 };
 
