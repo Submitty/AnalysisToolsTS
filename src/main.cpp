@@ -5,7 +5,8 @@
 #include "counter.h"
 #include "utils.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     Language lang;
     Countable countable;
     std::string feature;

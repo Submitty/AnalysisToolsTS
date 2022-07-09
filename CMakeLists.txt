@@ -2,14 +2,10 @@ cmake_minimum_required(VERSION 3.16.3)
 
 project(submitty_count_ts)
 
-find_package(Boost COMPONENTS system filesystem REQUIRED)
+add_executable(${PROJECT_NAME} src/main.cpp include/tree-sitter-python/src/parser.c include/tree-sitter-c/src/parser.c src/counter.cpp src/parser.cpp src/utils.cpp include/tree-sitter-python/src/scanner.cc)
 
-add_executable(${PROJECT_NAME} src/main.cpp vendor/tree-sitter-python/src/parser.c vendor/tree-sitter-c/src/parser.c src/counter.cpp src/parser.cpp src/utils.cpp vendor/tree-sitter-python/src/scanner.cc)
+include_directories(include/tree-sitter/lib/include)
 
-include_directories(vendor/tree-sitter/lib/include ${Boost_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/include/tree-sitter/libtree-sitter.a)
 
-link_directories(${Boost_LIBRARY_DIR})
-
-target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/vendor/tree-sitter/libtree-sitter.a ${Boost_LIBRARIES})
-
-target_include_directories(${PROJECT_NAME} PUBLIC vendor/tree-sitter/lib/include)
+target_include_directories(${PROJECT_NAME} PUBLIC include/tree-sitter/lib/include)

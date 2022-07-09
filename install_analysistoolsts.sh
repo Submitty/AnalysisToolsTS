@@ -23,7 +23,7 @@ mkdir -p "${INSTALLATION_DIR}"
 # Copy cloned files to AnalysisToolsTS directory
 rsync -rtz "${REPO_DIR}" "${INSTALLATION_DIR}"
 
-mkdir -p "${VENDOR_DIR}"
+mkdir -p "${INCLUDE_DIR}"
 
 ########################################################################
 
@@ -32,7 +32,7 @@ repos=( tree-sitter tree-sitter-python tree-sitter-c )
 
 for repo in "${repos[@]}"
 do
-    dir="${VENDOR_DIR}"/"${repo}"
+    dir="${INCLUDE_DIR}"/"${repo}"
 
     echo "clone or update ${repo}... "
 
@@ -48,7 +48,7 @@ do
     else
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
-        pushd "${VENDOR_DIR}" || exit
+        pushd "${INCLUDE_DIR}" || exit
         git clone --depth 1 "https://github.com/tree-sitter/${repo}" 2 || exit
         popd || exit
 
@@ -61,7 +61,7 @@ done
 apt-get install -y libboost-all-dev
 
 # build tree sitter library
-pushd "${VENDOR_DIR}"/tree-sitter || exit
+pushd "${INCLUDE_DIR}"/tree-sitter || exit
 
 make
 
