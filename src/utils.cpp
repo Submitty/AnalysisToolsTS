@@ -1,6 +1,6 @@
 #include <vector>
 #include "parser.h"
-#include "counter.h"
+#include "utils.h"
 #include <glob.h>
 #include <cerrno>
 #include <cstring>
@@ -10,9 +10,12 @@
 void find_files(const std::string &file_pattern, std::vector<std::string> &files)
 {
   glob_t glob_result = {0};
-  int return_value = ::glob(file_pattern.c_str(), GLOB_TILDE, NULL, &glob_result);
+  int return_value = glob(file_pattern.c_str(), GLOB_TILDE, NULL, &glob_result);
   if (return_value != 0)
   {
+    std::cerr << "Error: Invalid file pattern" << std::endl;
+    std::cerr << "Usage: Use the exact file name or a valid glob" << std::endl;
+    exit(EXIT_FAILURE);
     return;
   }
   files.insert(files.begin(), glob_result.gl_pathv, glob_result.gl_pathv + glob_result.gl_pathc);
@@ -29,7 +32,8 @@ Language get_language(const std::string &arg)
   {
     return C;
   }
-  std::cout << "Invalid language" << std::endl;
+  std::cerr << "Error: Invalid language" << std::endl;
+  std::cerr << "Usage: Use either py/python or c/c++" << std::endl;
   exit(EXIT_FAILURE);
 }
 
@@ -37,29 +41,32 @@ Countable get_countable(const std::string &arg)
 {
   if (arg == "token")
   {
-    return token;
+    return TOKEN;
   }
   else if (arg == "node")
   {
-    return node;
+    return NODE;
   }
   else if (arg == "call")
   {
-    return call;
+    return CALL;
   }
   else if (arg == "function")
   {
-    return function;
+    return FUNCTION;
   }
-  std::cout << "Invalid countable" << std::endl;
+  std::cerr << "Error: Invalid countable" << std::endl;
+  std::cerr << "Usage: Pass either token, node, call or function" << std::endl;
   exit(EXIT_FAILURE);
 }
 
-void parse_args(int argc, char *argv[], Language &lang, Countable &countable, std::string &feature, std::vector<std::string> &files)
+void parse_args_counter(int argc, char *argv[], Language &lang, Countable &countable, std::string &feature, std::vector<std::string> &files)
 {
+  std::string usage_format = "Usage: submitty_count_ts -l <language> <countable> <feature> <files>";
   if (argc != 6)
   {
-    std::cout << "Require more arguments" << std::endl;
+    std::cerr << "Error: require more arguments" << std::endl;
+    std::cerr  << usage_format << std::endl;
     exit(EXIT_FAILURE);
   }
   for (size_t i = 1; i < argc; i++)
@@ -88,7 +95,39 @@ void parse_args(int argc, char *argv[], Language &lang, Countable &countable, st
       find_files(argv[i], files);
       continue;
     }
-    std::cout << "Invalid arguement at index " << i << " " << argv[i] << std::endl;
+    std::cerr << "Error: Invalid arguement at index " << i << " " << argv[i] << std::endl;
+    std::cerr << usage_format << std::endl;
+    exit(EXIT_FAILURE);
+  }
+}
+
+void parse_args_diagnoser(int argc, char *argv[], Language &lang, std::vector<std::string> &files)
+{
+  std::string usage_format = "Usage: submitty_diagnostics_ts -l <language> <files>";
+  if (argc != 4)
+  {
+    std::cerr << "Error: require more arguments" << std::endl;
+    std::cerr  << usage_format << std::endl;
+    exit(EXIT_FAILURE);
+  }
+  for (size_t i = 1; i < argc; i++)
+  {
+    if (i == 1 && (!strncmp(argv[i], "-l", 2) || !strncmp(argv[i], "--language", 10)))
+    {
+      continue;
+    }
+    else if (i == 2)
+    {
+      lang = get_language(argv[i]);
+      continue;
+    }
+    else if (i == 3)
+    {
+      find_files(argv[i], files);
+      continue;
+    }
+    std::cerr << "Error: Invalid arguement at index " << i << " " << argv[i] << std::endl;
+    std::cerr << usage_format << std::endl;
     exit(EXIT_FAILURE);
   }
 }
