@@ -70,7 +70,7 @@ void diagnose(Parser *parser, const std::vector<std::string> &files)
         }
     }
     std::ofstream output_file("out.json");
-    output_file << file_nodes_obj;
+    output_file << std::setw(4) << file_nodes_obj << std::endl;
 }
 
 
