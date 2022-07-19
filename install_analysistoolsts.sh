@@ -44,7 +44,7 @@ do
         # PULL CHANGES
         git fetch
         git reset --hard HEAD
-        git merge origin/$CURRENT_BRANCH
+        git merge origin/"$CURRENT_BRANCH"
         popd || exit
 
     else

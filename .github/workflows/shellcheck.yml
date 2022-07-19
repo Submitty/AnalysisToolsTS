@@ -9,5 +9,5 @@ jobs:
     - uses: actions/checkout@v2
     - name: install shellcheck
       run: sudo apt-get install -y shellcheck
-    - name: run cpp-check
+    - name: run shell-check
       run: shellcheck *.sh -e SC1090
