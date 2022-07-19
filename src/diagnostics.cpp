@@ -9,7 +9,7 @@
 #include "utils.h"
 #include <nlohmann/json.hpp>
 
-void write_node(std::string file, TSNode cur, nlohmann::json& file_nodes_obj)
+void write_node(const std::string& file, const TSNode& cur, nlohmann::json& file_nodes_obj)
 {
     nlohmann::json node = nlohmann::json::object({});
     TSPoint start_point = ts_node_start_point(cur);
