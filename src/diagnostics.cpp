@@ -7,94 +7,35 @@
 #include <iterator>
 #include "parser.h"
 #include "utils.h"
+#include <nlohmann/json.hpp>
 
-struct NodeDetails
+void write_node(std::string file, TSNode cur, nlohmann::json& file_nodes_obj)
 {
-    std::string end_col;
-    std::string node;
-    std::string start_line;
-    std::string start_col;
-    std::string end_line;
-};
-
-std::string escape_sequence(std::string type) {
-    std::string escape_chars[] = {"\"", "\'"};
-    if (type.find("\'") != std::string::npos || type.find("\"") != std::string::npos) {
-        std::string filtered = "";
-        for (size_t i = 0; i < type.length(); i++)
-        {
-            std::string target = type.substr(i, i + 1);
-            if (std::find(std::begin(escape_chars), std::end(escape_chars), target) != std::end(escape_chars)) {
-                filtered += "\\";
-            }
-            filtered += type[i];
-        }
-        return filtered;
-    }
-    return type;
-}
-
-void write_node(std::string file, TSNode cur, std::map<std::string, std::vector<NodeDetails>>& nodes)
-{
-    NodeDetails details;
+    nlohmann::json node = nlohmann::json::object({});
     TSPoint start_point = ts_node_start_point(cur);
     TSPoint end_point = ts_node_end_point(cur);
-    details.start_col = std::to_string(start_point.column + 1);
-    details.start_line = std::to_string(start_point.row + 1);
-    details.end_col = std::to_string(end_point.column + 1);
-    details.end_line = std::to_string(end_point.row + 1);
-    details.node = escape_sequence(ts_node_type(cur));
-    if (nodes.count(file) > 0)
-    {
-        NodeDetails last = nodes[file].back();
-        if (last.start_col == details.start_col && last.start_line == details.start_line && last.end_col == details.end_col && last.end_line == details.end_line) {
-            nodes[file].pop_back();
+    node["start_col"] = start_point.column + 1;
+    node["start_line"] = start_point.row + 1;
+    node["end_col"] = end_point.column + 1;
+    node["end_line"] = end_point.row + 1;
+    node["node"] = ts_node_type(cur);
+    if (file_nodes_obj.contains(file)) {
+        nlohmann::json last = file_nodes_obj[file].back();
+        nlohmann::json diff = nlohmann::json::diff(node, last);
+        if (diff.size() == 1) {
+            file_nodes_obj[file].erase(file_nodes_obj[file].size() - 1);
         }
-        nodes[file].push_back(details);
+        file_nodes_obj[file].push_back(node);
     }
-    else
-    {
-        std::vector<NodeDetails> nodes_init(1, details);
-        nodes[file] = nodes_init;
+    else {
+        file_nodes_obj[file] = nlohmann::json::array();
+        file_nodes_obj[file].push_back(node);
     }
-}
-
-void write_to_json_file(const std::map<std::string, std::vector<NodeDetails>>& file_nodes_map) {
-    std::ofstream output_file("out.json");
-    output_file << "{"
-                << "\n";
-    for (const std::pair<std::string, std::vector<NodeDetails>> &file_nodes : file_nodes_map)
-    {
-        output_file << "\t\"" + file_nodes.first + "\": [ \n";
-        std::vector<NodeDetails> nodes = file_nodes.second;
-        for (NodeDetails& node : nodes)
-        {
-            std::string obj = "\t\t{\n"
-                              "\t\t\t\"start_col\": " + node.start_col + ",\n"
-                              "\t\t\t\"start_line\": " + node.start_line + ",\n"
-                              "\t\t\t\"end_col\": " + node.end_col + ",\n"
-                              "\t\t\t\"end_line\": " + node.end_line + ",\n"
-                              "\t\t\t\"node\": \"" + node.node + "\"\n"
-                                  "\t\t}";
-            if (&node == &nodes.back())
-            {
-                output_file << obj << "\n";
-            }
-            else
-            {
-                output_file << obj << ",\n";
-            }
-        }
-        output_file << "\t]"
-                    << "\n";
-    }
-    output_file << "}"
-                << "\n";
 }
 
 void diagnose(Parser *parser, const std::vector<std::string> &files)
 {
-    std::map<std::string, std::vector<NodeDetails>> file_nodes_map;
+    nlohmann::json file_nodes_obj = nlohmann::json::object({});
     for (std::string file : files)
     {
         TSTree *tree = parser->parse_file(file);
@@ -105,7 +46,7 @@ void diagnose(Parser *parser, const std::vector<std::string> &files)
             if (ts_tree_cursor_goto_first_child(&cursor) || ts_tree_cursor_goto_next_sibling(&cursor))
             {
                 TSNode cur = ts_tree_cursor_current_node(&cursor);
-                write_node(file, cur, file_nodes_map);
+                write_node(file, cur, file_nodes_obj);
                 continue;
             }
             bool had_sibling = true;
@@ -120,7 +61,7 @@ void diagnose(Parser *parser, const std::vector<std::string> &files)
             }
             TSNode cur = ts_tree_cursor_current_node(&cursor);
             if (had_sibling) {
-                write_node(file, cur, file_nodes_map);
+                write_node(file, cur, file_nodes_obj);
             }
             if (ts_node_is_null(ts_node_parent(cur)))
             {
@@ -128,7 +69,8 @@ void diagnose(Parser *parser, const std::vector<std::string> &files)
             }
         }
     }
-    write_to_json_file(file_nodes_map);
+    std::ofstream output_file("out.json");
+    output_file << file_nodes_obj;
 }
 
 

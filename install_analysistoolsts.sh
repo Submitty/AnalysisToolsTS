@@ -10,7 +10,7 @@ fi
 
 VARS="$(dirname "$0")"/submitty.sh
 
-if [ "$1" == "local" ] || [ $# -gt 1 ]; then
+if [ $# -gt 0 ] && [ "$1" == "local" ]; then
     VARS="$(dirname "$0")"/local.sh
 fi
 
@@ -42,7 +42,9 @@ do
         pushd "${dir}" || exit
 
         # PULL CHANGES
-        git pull
+        git fetch
+        git reset --hard HEAD
+        git merge origin/$CURRENT_BRANCH
         popd || exit
 
     else
@@ -55,10 +57,13 @@ do
     fi
 done
 
-########################################################################
+# CHECKOUT & INSTALL THE NLOHMANN C++ JSON LIBRARY
+# If we don't already have a copy of this repository, check it out, only for local development
+if [ $# -gt 0 ] && [ ! -d "${NLOHMANN_DIR}" ]; then
+    git clone --depth 1 "https://github.com/nlohmann/json.git" "${NLOHMANN_DIR}"
+fi
 
-# boost
-apt-get install -y libboost-all-dev
+########################################################################
 
 # build tree sitter library
 pushd "${INCLUDE_DIR}"/tree-sitter || exit
@@ -72,7 +77,7 @@ echo "building submitty_count_ts ..."
 # Compile the project
 mkdir -p "${INSTALLATION_DIR}/build"
 
-cmake -S "${INSTALLATION_DIR}" -B "${INSTALLATION_DIR}/build"
+cmake -S "${INSTALLATION_DIR}" -B "${INSTALLATION_DIR}/build" -DJSONDIR="${NLOHMANN_INCLUDE_DIR}"
 
 pushd "${INSTALLATION_DIR}/build" || exit
 
@@ -81,7 +86,9 @@ make
 popd || exit
 
 # # change permissions
-chown -R root:root "${INSTALLATION_DIR}"
-chmod -R 755 "${INSTALLATION_DIR}"
+if [ $# -eq 0 ]; then
+    chown -R root:root "${INSTALLATION_DIR}"
+    chmod -R 755 "${INSTALLATION_DIR}"
+fi
 
 echo "Done setting up AnalysisToolsTS"

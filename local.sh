@@ -1,5 +1,7 @@
 #!/bin/bash
-REPO_DIR=$(dirname "$0")
-export REPO_DIR
-export INSTALLATION_DIR="${REPO_DIR}"
-export INCLUDE_DIR="${INSTALLATION_DIR}"/include
+REPO_DIR=$(pwd)
+export REPO_DIR=.
+export INSTALLATION_DIR=.
+export INCLUDE_DIR=include
+export NLOHMANN_DIR=include/json
+export NLOHMANN_INCLUDE_DIR=include/json/include/
