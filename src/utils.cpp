@@ -39,11 +39,7 @@ Language get_language(const std::string &arg)
 
 Countable get_countable(const std::string &arg)
 {
-  if (arg == "token")
-  {
-    return TOKEN;
-  }
-  else if (arg == "node")
+  if (arg == "node")
   {
     return NODE;
   }
@@ -55,8 +51,12 @@ Countable get_countable(const std::string &arg)
   {
     return FUNCTION;
   }
+  else if (arg == "identifier")
+  {
+    return IDENTIFIER;
+  }
   std::cerr << "Error: Invalid countable" << std::endl;
-  std::cerr << "Usage: Pass either token, node, call or function" << std::endl;
+  std::cerr << "Usage: Pass either node, call, identifier or function" << std::endl;
   exit(EXIT_FAILURE);
 }
 
@@ -95,7 +95,7 @@ void parse_args_counter(int argc, char *argv[], Language &lang, Countable &count
       find_files(argv[i], files);
       continue;
     }
-    std::cerr << "Error: Invalid arguement at index " << i << " " << argv[i] << std::endl;
+    std::cerr << "Error: Invalid argument at index " << i << " " << argv[i] << std::endl;
     std::cerr << usage_format << std::endl;
     exit(EXIT_FAILURE);
   }
@@ -126,7 +126,7 @@ void parse_args_diagnoser(int argc, char *argv[], Language &lang, std::vector<st
       find_files(argv[i], files);
       continue;
     }
-    std::cerr << "Error: Invalid arguement at index " << i << " " << argv[i] << std::endl;
+    std::cerr << "Error: Invalid argument at index " << i << " " << argv[i] << std::endl;
     std::cerr << usage_format << std::endl;
     exit(EXIT_FAILURE);
   }

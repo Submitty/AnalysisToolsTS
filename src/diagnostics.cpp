@@ -43,26 +43,21 @@ void diagnose(Parser *parser, const std::vector<std::string> &files)
         TSTreeCursor cursor = ts_tree_cursor_new(root_node);
         while (true)
         {
+            TSNode cur = ts_tree_cursor_current_node(&cursor);
+            write_node(file, cur, file_nodes_obj);
             if (ts_tree_cursor_goto_first_child(&cursor) || ts_tree_cursor_goto_next_sibling(&cursor))
             {
-                TSNode cur = ts_tree_cursor_current_node(&cursor);
-                write_node(file, cur, file_nodes_obj);
                 continue;
             }
-            bool had_sibling = true;
             ts_tree_cursor_goto_parent(&cursor);
             while (!ts_tree_cursor_goto_next_sibling(&cursor))
             {
                 if (!ts_tree_cursor_goto_parent(&cursor))
                 {
-                    had_sibling = false;
                     break;
                 }
             }
-            TSNode cur = ts_tree_cursor_current_node(&cursor);
-            if (had_sibling) {
-                write_node(file, cur, file_nodes_obj);
-            }
+            cur = ts_tree_cursor_current_node(&cursor);
             if (ts_node_is_null(ts_node_parent(cur)))
             {
                 break;

@@ -6,10 +6,10 @@
 
 enum Countable
 {
-    TOKEN,
     NODE,
     CALL,
-    FUNCTION
+    FUNCTION,
+    IDENTIFIER
 };
 
 void find_files(const std::string &file_pattern, std::vector<std::string> &files);
