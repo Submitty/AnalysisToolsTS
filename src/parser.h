@@ -10,7 +10,8 @@ extern "C"
 enum Language
 {
     PYTHON,
-    C
+    C,
+    CPP
 };
 
 class Parser

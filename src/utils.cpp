@@ -32,8 +32,12 @@ Language get_language(const std::string &arg)
   {
     return C;
   }
+  else if (arg == "cpp" || arg == "c++")
+  {
+    return CPP;
+  }
   std::cerr << "Error: Invalid language" << std::endl;
-  std::cerr << "Usage: Use either py/python or c/c++" << std::endl;
+  std::cerr << "Usage: Use either py/python, c, cpp/c++" << std::endl;
   exit(EXIT_FAILURE);
 }
 

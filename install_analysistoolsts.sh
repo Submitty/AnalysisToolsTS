@@ -28,7 +28,7 @@ mkdir -p "${INCLUDE_DIR}"
 ########################################################################
 
 # Clone the tree-sitter repos
-repos=( tree-sitter tree-sitter-python tree-sitter-c )
+repos=( tree-sitter tree-sitter-python tree-sitter-c tree-sitter-cpp)
 
 for repo in "${repos[@]}"
 do
@@ -51,7 +51,7 @@ do
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
         pushd "${INCLUDE_DIR}" || exit
-        git clone --depth 1 "https://github.com/tree-sitter/${repo}" 2 || exit
+        git clone --depth 1 "https://github.com/tree-sitter/${repo}" || exit
         popd || exit
 
     fi

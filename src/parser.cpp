@@ -7,6 +7,7 @@ extern "C"
 }
 extern "C" TSLanguage *tree_sitter_python();
 extern "C" TSLanguage *tree_sitter_c();
+extern "C" TSLanguage *tree_sitter_cpp();
 
 Parser::Parser(const Language &lang)
 {
@@ -18,6 +19,10 @@ Parser::Parser(const Language &lang)
     else if (lang == C)
     {
         ts_parser_set_language(parser, tree_sitter_c());
+    }
+    else if (lang == CPP)
+    {
+        ts_parser_set_language(parser, tree_sitter_cpp());
     }
 }
 
