@@ -1,9 +1,2 @@
-node_modules/
-.DS_Store
-
-# build artifacts
-dist/
-
-# test artifacts
-.nyc_output/
-coverage/
+include/
+build/

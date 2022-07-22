@@ -12,7 +12,11 @@ This is intended to be a successor to the `count` and `diagnostics` applications
 To work with this repo, you will need [Node.js](https://nodejs.org/).
 
 ```bash
-git clone https://github.com/Submitty/tree-analyzer
-cd tree-analyzer
-npm install
+git clone https://github.com/Submitty/AnalysisToolsTS
+cd AnalysisToolsTS
+```
+
+To run locally setup with command
+```
+./install_analysistoolsts.sh local
 ```
