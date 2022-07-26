@@ -9,9 +9,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Change permission
       run: chmod +x install_analysistoolsts.sh
-    - name: switch user
-      run: sudo su
     - name: Build executable
-      run: ./install_analysistoolsts.sh local
+      run: sudo ./install_analysistoolsts.sh local
     - name: run tests
       run: python testRunner.py
