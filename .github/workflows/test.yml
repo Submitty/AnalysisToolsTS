@@ -7,5 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Change permission
+      run: chmod +x ./install_analysis_toolsts.sh
+    - name: Build executable
+      run: ./install_analysis_toolsts.sh local
     - name: run tests
       run: python testRunner.py
