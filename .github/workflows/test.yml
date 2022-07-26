@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: ls
+      run: ls
     - name: Change permission
-      run: chmod +x ./install_analysis_toolsts.sh
+      run: chmod +x install_analysis_toolsts.sh
     - name: Build executable
       run: ./install_analysis_toolsts.sh local
     - name: run tests
