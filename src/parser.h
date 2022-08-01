@@ -9,15 +9,15 @@ extern "C" {
 enum Language { PYTHON, C, CPP };
 
 class Parser {
-  public:
-	explicit Parser(const Language &lang);
-	TSTree *parse_file(const std::string &file);
-	std::string read_file(const std::string &path);
-	std::string get_identifier(int start, int end);
+public:
+  explicit Parser(const Language &lang);
+  TSTree *parse_file(const std::string &file);
+  std::string read_file(const std::string &path);
+  std::string get_identifier(int start, int end);
 
-  private:
-	TSParser *parser;
-	std::string cur_code;
+private:
+  TSParser *parser;
+  std::string cur_code;
 };
 
 #endif
