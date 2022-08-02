@@ -1,0 +1,33 @@
+{
+  "🔥.py": [
+    { "-l py call print testSuite/🔥.py": 1 },
+    { "-l py node for testSuite/🔥.py": 2 },
+    { "-l py node continue testSuite/🔥.py": 1 },
+    { "-l py node break testSuite/🔥.py": 1 },
+    { "-l py node if testSuite/🔥.py": 1 },
+    { "-l py node elif testSuite/🔥.py": 1 }
+  ],
+  "max.c": [
+    { "-l c identifier num1 testSuite/max.c": 5 },
+    { "-l c call max testSuite/max.c": 1 },
+    { "-l c call printf testSuite/max.c": 1 },
+    { "-l c node return testSuite/max.c": 3 },
+    { "-l c node if testSuite/max.c": 1 },
+    { "-l c node else testSuite/max.c": 1 },
+    { "-l c function max testSuite/max.c": 1 }
+  ],
+  "solution.cpp": [
+    { "-l cpp call cout testSuite/solution.cpp": 1 },
+    { "-l cpp call erase testSuite/solution.cpp": 1 },
+    { "-l cpp call begin testSuite/solution.cpp": 1 },
+    { "-l cpp identifier numbers testSuite/solution.cpp": 4 }
+  ],
+  "solution.py": [
+    { "-l py call print testSuite/solution.py": 2 },
+    { "-l py call age testSuite/solution.py": 1 },
+    { "-l py function age testSuite/solution.py": 1 },
+    { "-l py call dog testSuite/solution.py": 1 },
+    { "-l py node class testSuite/solution.py": 1 },
+    { "-l py identifier dog testSuite/solution.py": 6 }
+  ]
+}
