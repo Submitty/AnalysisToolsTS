@@ -53,7 +53,7 @@ Countable get_countable(const std::string &arg) {
 
 void parse_args_counter(int argc, char *argv[], Language &lang, Countable &countable, std::string &feature,
                         std::vector<std::string> &files) {
-  std::string usage_format = "Usage: submitty_count_ts -l <language> <countable> <feature> <files>";
+  std::string usage_format = "Usage: submitty_count_ts -l <language> <countable> <feature> <files>...";
   if (argc < 6) {
     std::cerr << "Error: require more arguments" << std::endl;
     std::cerr << usage_format << std::endl;
@@ -82,7 +82,7 @@ void parse_args_counter(int argc, char *argv[], Language &lang, Countable &count
 }
 
 void parse_args_diagnoser(int argc, char *argv[], Language &lang, std::vector<std::string> &files) {
-  std::string usage_format = "Usage: submitty_diagnostics_ts -l <language> <files>";
+  std::string usage_format = "Usage: submitty_diagnostics_ts -l <language> <files>...";
   if (argc < 4) {
     std::cerr << "Error: require more arguments" << std::endl;
     std::cerr << usage_format << std::endl;
