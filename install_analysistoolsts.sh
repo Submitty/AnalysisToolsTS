@@ -22,8 +22,7 @@ mkdir -p "${INSTALLATION_DIR}"
 
 # Copy cloned files to AnalysisToolsTS directory
 if [ $# -eq 0 ]; then
-    rsync -rtz "${REPO_DIR}/src" "${INSTALLATION_DIR}"
-    rsync -rtz "${REPO_DIR}/CMakeLists.txt" "${INSTALLATION_DIR}"
+    rsync -rtz "${REPO_DIR}/src" "${REPO_DIR}/CMakeLists.txt" "${INSTALLATION_DIR}"
 fi
 
 mkdir -p "${INCLUDE_DIR}"
