@@ -19,7 +19,7 @@ void find_files(const std::string &file_pattern, std::vector<std::string> &files
     exit(EXIT_FAILURE);
     return;
   }
-  files.insert(files.begin(), glob_result.gl_pathv, glob_result.gl_pathv + glob_result.gl_pathc);
+  files.insert(files.end(), glob_result.gl_pathv, glob_result.gl_pathv + glob_result.gl_pathc);
   globfree(&glob_result);
 }
 
@@ -53,8 +53,8 @@ Countable get_countable(const std::string &arg) {
 
 void parse_args_counter(int argc, char *argv[], Language &lang, Countable &countable, std::string &feature,
                         std::vector<std::string> &files) {
-  std::string usage_format = "Usage: submitty_count_ts -l <language> <countable> <feature> <files>";
-  if (argc != 6) {
+  std::string usage_format = "Usage: submitty_count_ts -l <language> <countable> <feature> <files>...";
+  if (argc < 6) {
     std::cerr << "Error: require more arguments" << std::endl;
     std::cerr << usage_format << std::endl;
     exit(EXIT_FAILURE);
@@ -71,7 +71,7 @@ void parse_args_counter(int argc, char *argv[], Language &lang, Countable &count
     } else if (i == 4) {
       feature = argv[i];
       continue;
-    } else if (i == 5) {
+    } else if (i >= 5) {
       find_files(argv[i], files);
       continue;
     }
@@ -82,8 +82,8 @@ void parse_args_counter(int argc, char *argv[], Language &lang, Countable &count
 }
 
 void parse_args_diagnoser(int argc, char *argv[], Language &lang, std::vector<std::string> &files) {
-  std::string usage_format = "Usage: submitty_diagnostics_ts -l <language> <files>";
-  if (argc != 4) {
+  std::string usage_format = "Usage: submitty_diagnostics_ts -l <language> <files>...";
+  if (argc < 4) {
     std::cerr << "Error: require more arguments" << std::endl;
     std::cerr << usage_format << std::endl;
     exit(EXIT_FAILURE);
@@ -94,7 +94,7 @@ void parse_args_diagnoser(int argc, char *argv[], Language &lang, std::vector<st
     } else if (i == 2) {
       lang = get_language(argv[i]);
       continue;
-    } else if (i == 3) {
+    } else if (i >= 3) {
       find_files(argv[i], files);
       continue;
     }
