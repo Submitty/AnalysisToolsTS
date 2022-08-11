@@ -15,4 +15,4 @@ jobs:
     - name: Build executable
       run: sudo ./install_analysistoolsts.sh local
     - name: run tests
-      run: python testRunner.py
+      run: python3 testRunner.py
