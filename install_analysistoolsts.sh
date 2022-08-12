@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 ########################################################################################################################
 ########################################################################################################################
 # this script must be run by root or sudo
@@ -41,20 +43,22 @@ do
     if [ -d "${dir}" ]; then
         echo "pulling changes ..."
         # IF THE REPO ALREADY EXISTS...
-        pushd "${dir}" || exit
+        pushd "${dir}"
+
+        CURRENT_BRANCH=$(git branch --show-current)
 
         # PULL CHANGES
         git fetch
         git reset --hard HEAD
-        git merge origin/"$CURRENT_BRANCH"
-        popd || exit
+        git merge origin/"${CURRENT_BRANCH}"
+        popd
 
     else
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
-        pushd "${INCLUDE_DIR}" || exit
-        git clone --depth 1 "https://github.com/tree-sitter/${repo}" || exit
-        popd || exit
+        pushd "${INCLUDE_DIR}"
+        git clone --depth 1 "https://github.com/tree-sitter/${repo}"
+        popd
 
     fi
 done
@@ -68,11 +72,11 @@ fi
 ########################################################################
 
 # build tree sitter library
-pushd "${INCLUDE_DIR}"/tree-sitter || exit
+pushd "${INCLUDE_DIR}"/tree-sitter
 
 make
 
-popd || exit
+popd
 
 echo "building submitty_count_ts ..."
 
@@ -81,11 +85,11 @@ mkdir -p "${INSTALLATION_DIR}/build"
 
 cmake -S "${INSTALLATION_DIR}" -B "${INSTALLATION_DIR}/build" -DJSONDIR="${NLOHMANN_INCLUDE_DIR}"
 
-pushd "${INSTALLATION_DIR}/build" || exit
+pushd "${INSTALLATION_DIR}/build"
 
 make
 
-popd || exit
+popd
 
 # # change permissions
 if [ $# -eq 0 ]; then

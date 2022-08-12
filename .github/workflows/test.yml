@@ -4,7 +4,10 @@ on: [push]
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
     - name: Change permission
@@ -12,4 +15,4 @@ jobs:
     - name: Build executable
       run: sudo ./install_analysistoolsts.sh local
     - name: run tests
-      run: python testRunner.py
+      run: python3 testRunner.py
