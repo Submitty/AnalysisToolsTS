@@ -29,5 +29,23 @@
     { "-l py call dog testSuite/solution.py": 1 },
     { "-l py node class testSuite/solution.py": 1 },
     { "-l py identifier dog testSuite/solution.py": 6 }
+  ],
+  "oop.java": [
+    { "-l java node interface testSuite/oop.java": 1 },
+    { "-l java node abstract testSuite/oop.java": 1 },
+    { "-l java node extends testSuite/oop.java": 1 },
+    { "-l java function sound testSuite/oop.java": 2 },
+    { "-l java call println testSuite/oop.java": 2 },
+    { "-l java call sound testSuite/oop.java": 1 },
+    { "-l java identifier Dog testSuite/oop.java": 3 }
+  ],
+  "fibonacci.java": [
+    { "-l java node if testSuite/fibonacci.java": 1 },
+    { "-l java node for testSuite/fibonacci.java": 1 },
+    { "-l java node + testSuite/fibonacci.java": 4 },
+    { "-l java function printFibonacci testSuite/fibonacci.java": 1 },
+    { "-l java call print testSuite/fibonacci.java": 2 },
+    { "-l java identifier fibonacci testSuite/fibonacci.java": 2 },
+    { "-l java identifier Fibonacci testSuite/fibonacci.java": 4 }
   ]
 }
