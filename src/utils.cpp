@@ -30,9 +30,11 @@ Language get_language(const std::string &arg) {
     return C;
   } else if (arg == "cpp" || arg == "c++") {
     return CPP;
+  } else if (arg == "java") {
+    return JAVA;
   }
   std::cerr << "Error: Invalid language" << std::endl;
-  std::cerr << "Usage: Use either py/python, c, cpp/c++" << std::endl;
+  std::cerr << "Usage: Use either py/python, c, cpp/c++, java" << std::endl;
   exit(EXIT_FAILURE);
 }
 

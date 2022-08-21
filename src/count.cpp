@@ -14,7 +14,7 @@ extern "C" {
 void check_call_node(const char *type, bool &is_parent_call) {
   // types of function nodes: call, call_expression, binary_expression (eg:
   // std::cout << "hello")
-  if (!strcmp("call", type) || !strcmp("call_expression", type) || !strcmp("binary_expression", type)) {
+  if (!strcmp("call", type) || !strcmp("call_expression", type) || !strcmp("binary_expression", type) || !strcmp("method_invocation", type)) {
     is_parent_call = true;
   }
 }

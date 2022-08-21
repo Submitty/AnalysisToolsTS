@@ -9,6 +9,7 @@ extern "C" {
 extern "C" TSLanguage *tree_sitter_python();
 extern "C" TSLanguage *tree_sitter_c();
 extern "C" TSLanguage *tree_sitter_cpp();
+extern "C" TSLanguage *tree_sitter_java();
 
 Parser::Parser(const Language &lang) {
   parser = ts_parser_new();
@@ -18,6 +19,8 @@ Parser::Parser(const Language &lang) {
     ts_parser_set_language(parser, tree_sitter_c());
   } else if (lang == CPP) {
     ts_parser_set_language(parser, tree_sitter_cpp());
+  } else if (lang == JAVA) {
+    ts_parser_set_language(parser, tree_sitter_java());
   }
 }
 
