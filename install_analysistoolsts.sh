@@ -32,7 +32,7 @@ mkdir -p "${INCLUDE_DIR}"
 ########################################################################
 
 # Clone the tree-sitter repos
-repos=( tree-sitter tree-sitter-python tree-sitter-c tree-sitter-cpp)
+repos=( tree-sitter tree-sitter-python tree-sitter-c tree-sitter-cpp tree-sitter-java)
 
 for repo in "${repos[@]}"
 do

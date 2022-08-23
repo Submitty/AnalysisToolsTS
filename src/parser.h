@@ -6,7 +6,7 @@ extern "C" {
 #include <tree_sitter/api.h>
 }
 
-enum Language { PYTHON, C, CPP };
+enum Language { PYTHON, C, CPP, JAVA };
 
 class Parser {
 public:

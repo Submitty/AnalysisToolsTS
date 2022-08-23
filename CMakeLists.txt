@@ -17,7 +17,9 @@ add_library(tree-sitter-cpp include/tree-sitter-cpp/src/parser.c
 
 add_library(tree-sitter-c include/tree-sitter-c/src/parser.c)
 
-link_libraries(tree-sitter-python tree-sitter-c tree-sitter-cpp
+add_library(tree-sitter-java include/tree-sitter-java/src/parser.c)
+
+link_libraries(tree-sitter-python tree-sitter-c tree-sitter-cpp tree-sitter-java
                ${PROJECT_SOURCE_DIR}/include/tree-sitter/libtree-sitter.a)
 
 add_executable(submitty_count_ts src/count.cpp src/parser.cpp src/utils.cpp)

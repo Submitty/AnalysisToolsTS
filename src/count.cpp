@@ -14,14 +14,14 @@ extern "C" {
 void check_call_node(const char *type, bool &is_parent_call) {
   // types of function nodes: call, call_expression, binary_expression (eg:
   // std::cout << "hello")
-  if (!strcmp("call", type) || !strcmp("call_expression", type) || !strcmp("binary_expression", type)) {
+  if (!strcmp("call", type) || !strcmp("call_expression", type) || !strcmp("binary_expression", type) || !strcmp("method_invocation", type)) {
     is_parent_call = true;
   }
 }
 
 // check if the cur node is a function definition node
 void check_func_def_node(const char *type, bool &is_parent_func_def) {
-  if (!strcmp("function_definition", type)) {
+  if (!strcmp("function_definition", type) || !strcmp("method_declaration", type)) {
     is_parent_func_def = true;
   }
 }
@@ -61,7 +61,7 @@ int count_feature(Parser *parser, const Countable &countable, const std::string 
       const char *type = ts_node_type(cur);
       // check if cur node is a identifier; used when counting
       // identifiers, functions or calls
-      if (!strcmp("identifier", type) || !strcmp("field_identifier", type)) {
+      if (!strcmp("identifier", type) || !strcmp("field_identifier", type) || !strcmp("type_identifier", type)) {
         int start = ts_node_start_byte(cur);
         int end = ts_node_end_byte(cur);
         // retrieve identifier name
