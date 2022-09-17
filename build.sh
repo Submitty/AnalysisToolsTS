@@ -8,8 +8,8 @@ CUR_DIR=$(dirname "${0}")
 BUILD_DIR=${CUR_DIR}/build
 INCLUDE_DIR=${CUR_DIR}/include
 
-mkdir -p ${BUILD_DIR}
-mkdir -p ${INCLUDE_DIR}
+mkdir -p "${BUILD_DIR}"
+mkdir -p "${INCLUDE_DIR}"
 
 ########################################################################
 
@@ -25,20 +25,20 @@ do
     if [ -d "${dir}" ]; then
         echo "pulling changes ..."
         # IF THE REPO ALREADY EXISTS...
-        pushd ${dir}
+        pushd "${dir}"
 
         CURRENT_BRANCH=$(git branch --show-current)
 
         # PULL CHANGES
         git fetch
         git reset --hard HEAD
-        git merge origin/"${CURRENT_BRANCH}"
+        git merge "origin/${CURRENT_BRANCH}"
 
         popd
     else
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
-        git clone --depth 1 "https://github.com/tree-sitter/${repo}" ${INCLUDE_DIR}/${repo}
+        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}"
     fi
 done
 
@@ -46,31 +46,31 @@ done
 echo "clone or update nlohmann"
 if [ -d "${INCLUDE_DIR}/json" ]; then
   echo "pulling changes ..."
-  pushd ${INCLUDE_DIR}/json
+  pushd "${INCLUDE_DIR}/json"
 
   CURRENT_BRANCH=$(git branch --show-current)
   git fetch
   git reset --hard HEAD
-  git merge origin/${CURRENT_BRANCH}
+  git merge "origin/${CURRENT_BRANCH}"
   popd
 else
-  git clone --depth 1 "https://github.com/nlohmann/json.git" ${INCLUDE_DIR}/json
+  git clone --depth 1 "https://github.com/nlohmann/json.git" "${INCLUDE_DIR}/json"
 fi
 
 
 ########################################################################
 
 # build tree sitter library
-pushd ${INCLUDE_DIR}/tree-sitter
+pushd "${INCLUDE_DIR}/tree-sitter"
 make
 popd
 
 echo "building submitty_count_ts ..."
 
 # Compile the project
-cmake -S ${CUR_DIR} -B ${BUILD_DIR} -DJSONDIR=${INCLUDE_DIR}/json/include
+cmake -S "${CUR_DIR}" -B "${BUILD_DIR}" -DJSONDIR="${INCLUDE_DIR}/json/include"
 
-pushd ${BUILD_DIR}
+pushd "${BUILD_DIR}"
 make
 popd
 

@@ -26,10 +26,6 @@ jobs:
       run: |
         echo "CC=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
         echo "CXX=aarch64-linux-gnu-g++" >> $GITHUB_ENV
-    - name: Debug output
-      run: |
-        echo "CC=${CC}"
-        echo "CXX=${CXX}"
     - name: Build executable
       run: bash build.sh
     - name: Duplicate executables (x86_64)
