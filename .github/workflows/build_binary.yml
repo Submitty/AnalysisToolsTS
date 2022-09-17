@@ -34,12 +34,12 @@ jobs:
       if: matrix.arch == 'x86_64'
       run: |
         cp build/submitty_count_ts build/submitty_count_ts-x86_64
-        cp build/submitty_parse_ts build/submitty_parse_ts-x86_64
+        cp build/submitty_diagnostics_ts build/submitty_diagnostics_ts-x86_64
     - name: Move executables (aarch64)
       if: matrix.arch == 'aarch64'
       run: |
         mv build/submitty_count_ts build/submitty_count_ts-aarch64
-        mv build/submitty_parse_ts build/submitty_parse_ts-aarch64
+        mv build/submitty_diagnostics_ts build/submitty_diagnostics_ts-aarch64
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
