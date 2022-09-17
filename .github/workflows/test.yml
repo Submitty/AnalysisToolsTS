@@ -10,9 +10,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
-    - name: Change permission
-      run: chmod +x install_analysistoolsts.sh
     - name: Build executable
-      run: sudo ./install_analysistoolsts.sh local
+      run: bash ./build.sh
     - name: run tests
       run: python3 testRunner.py
