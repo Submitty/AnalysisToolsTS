@@ -26,6 +26,10 @@ jobs:
       run: |
         echo "CC=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
         echo "CXX=aarch64-linux-gnu-g++" >> $GITHUB_ENV
+    - name: Debug output
+      run: |
+        echo "CC=${CC}"
+        echo "CXX=${CXX}"
     - name: Build executable
       run: sudo bash ./install_analysistoolsts.sh local
     - name: Chown executables
