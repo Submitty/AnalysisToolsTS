@@ -14,5 +14,7 @@ jobs:
       run: chmod +x install_analysistoolsts.sh
     - name: Build executable
       run: sudo ./install_analysistoolsts.sh local
+    - name: install dev dependencies
+      run: python3 -m pip install -r requirements_dev.txt
     - name: run tests
-      run: python3 testRunner.py
+      run: pytest

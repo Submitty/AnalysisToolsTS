@@ -1,1 +1,1 @@
-test/data/**/* -linguist-detectable
+tests/fixtures/**/* -linguist-detectable
