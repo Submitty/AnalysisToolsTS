@@ -71,6 +71,9 @@ fi
 
 ########################################################################
 
+echo "CC=${CC}"
+echo "CXX=${CXX}"
+
 # build tree sitter library
 pushd "${INCLUDE_DIR}"/tree-sitter
 
