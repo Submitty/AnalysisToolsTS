@@ -28,6 +28,8 @@ jobs:
         echo "CXX=aarch64-linux-gnu-g++" >> $GITHUB_ENV
     - name: Build executable
       run: sudo bash ./install_analysistoolsts.sh local
+    - name: Chown executables
+      run: sudo chown -R $USER:$USER build
     - name: Duplicate executables (x86_64)
       if: matrix.arch == 'x86_64'
       run: |
