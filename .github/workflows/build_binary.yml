@@ -2,10 +2,9 @@ name: Build binaries on release
 
 on:
   push:
-    branches:
-      - '*'
     tags:
       - '*'
+
 jobs:
   build:
     name: build
