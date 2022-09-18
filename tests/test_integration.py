@@ -9,11 +9,10 @@ fixtures_dir = this_dir / 'fixtures'
 exe_path = this_dir / '..' / 'build' / 'submitty_count_ts'
 
 def execute_command(file: str, command: str) -> int:
-    args = [exe_path]
-    args.extend((f"-l {file.split('.')[1]} {command} {str(this_dir / 'fixtures' / file)}").split(" "))
+args = [exe_path, '-l', file.split('.'[-1]), command, str(this_dir / 'fixtures' / file)]
     result = subprocess.run(args, capture_output=True)
     output = result.stdout.decode().strip("\n")
-    if (not output.isnumeric()):
+    if not output.isnumeric():
         raise Exception("Result is not numeric")
     return int(output)
 
@@ -24,7 +23,7 @@ with (this_dir / 'fixtures' / 'commands.json').open() as file:
 testcases = []
 
 file: str
-for file in commands.keys():
+for file in commands:
     for test in commands[file]:
         testcases.append([file, test[0], test[1]])
 
