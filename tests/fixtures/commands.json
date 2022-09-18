@@ -1,51 +1,51 @@
 {
   "🔥.py": [
-    ["call print", 1],
-    ["node for", 2],
-    ["node continue", 1],
-    ["node break", 1],
-    ["node if", 1],
-    ["node elif", 1]
+    ["call", "print", 1],
+    ["node", "for", 2],
+    ["node", "continue", 1],
+    ["node", "break", 1],
+    ["node", "if", 1],
+    ["node", "elif", 1]
   ],
   "max.c": [
-    ["identifier num1", 5],
-    ["call max", 1],
-    ["call printf", 1],
-    ["node return", 3],
-    ["node if", 1],
-    ["node else", 1],
-    ["function max", 1]
+    ["identifier", "num1", 5],
+    ["call", "max", 1],
+    ["call", "printf", 1],
+    ["node", "return", 3],
+    ["node", "if", 1],
+    ["node", "else", 1],
+    ["function", "max", 1]
   ],
   "solution.cpp": [
-    ["call cout", 1],
-    ["call erase", 1],
-    ["call begin", 1],
-    ["identifier numbers", 4]
+    ["call", "cout", 1],
+    ["call", "erase", 1],
+    ["call", "begin", 1],
+    ["identifier", "numbers", 4]
   ],
   "solution.py": [
-    ["call print", 2],
-    ["call age", 1],
-    ["function age", 1],
-    ["call dog", 1],
-    ["node class", 1],
-    ["identifier dog", 6]
+    ["call", "print", 2],
+    ["call", "age", 1],
+    ["function", "age", 1],
+    ["call", "dog", 1],
+    ["node", "class", 1],
+    ["identifier", "dog", 6]
   ],
   "oop.java": [
-    ["node interface", 1],
-    ["node abstract", 1],
-    ["node extends", 1],
-    ["function sound", 2],
-    ["call println", 2],
-    ["call sound", 1],
-    ["identifier Dog", 3]
+    ["node", "interface", 1],
+    ["node", "abstract", 1],
+    ["node", "extends", 1],
+    ["function", "sound", 2],
+    ["call", "println", 2],
+    ["call", "sound", 1],
+    ["identifier", "Dog", 3]
   ],
   "fibonacci.java": [
-    ["node if", 1],
-    ["node for", 1],
-    ["node +", 4],
-    ["function printFibonacci", 1],
-    ["call print", 2],
-    ["identifier fibonacci", 2],
-    ["identifier Fibonacci", 4]
+    ["node", "if", 1],
+    ["node", "for", 1],
+    ["node", "+", 4],
+    ["function", "printFibonacci", 1],
+    ["call", "print", 2],
+    ["identifier", "fibonacci", 2],
+    ["identifier", "Fibonacci", 4]
   ]
 }

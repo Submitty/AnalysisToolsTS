@@ -8,10 +8,12 @@ this_dir = Path(__file__).parent.resolve()
 fixtures_dir = this_dir / 'fixtures'
 exe_path = this_dir / '..' / 'build' / 'submitty_count_ts'
 
-def execute_command(file: str, command: str) -> int:
-    args = [exe_path, '-l', file.split('.')[-1], command, str(this_dir / 'fixtures' / file)]
+def execute_command(file: str, command: str, feature: str) -> int:
+    args = [str(exe_path), '-l', file.split('.')[-1], command, feature, str(this_dir / 'fixtures' / file)]
+    print(args)
     result = subprocess.run(args, capture_output=True)
     output = result.stdout.decode().strip("\n")
+    print(output)
     if not output.isnumeric():
         raise Exception("Result is not numeric")
     return int(output)
@@ -25,8 +27,8 @@ testcases = []
 file: str
 for file in commands:
     for test in commands[file]:
-        testcases.append([file, test[0], test[1]])
+        testcases.append([file, test[0], test[1], test[2]])
 
-@pytest.mark.parametrize("file, command, expected_output", testcases)
-def test_integration(file, command, expected_output):
-    assert expected_output == execute_command(file, command)
+@pytest.mark.parametrize("file, command, feature, expected_output", testcases)
+def test_integration(file, command, feature, expected_output):
+    assert expected_output == execute_command(file, command, feature)
