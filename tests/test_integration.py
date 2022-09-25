@@ -29,6 +29,6 @@ for file in commands:
     for test in commands[file]:
         testcases.append([file, test[0], test[1], test[2]])
 
-@pytest.mark.parametrize("file, command, feature, expected_output", testcases)
+@pytest.mark.parametrize("file, countable, feature, expected_output", testcases)
 def test_integration(file, countable, feature, expected_output):
     assert expected_output == execute_command(file, countable, feature)
