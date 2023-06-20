@@ -16,10 +16,9 @@ mkdir -p "${INCLUDE_DIR}"
 # These variables specify the minimum version necessary for
 # dependencies between versions.
 MY_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-source ${MY_PATH}/versions.sh
+source ${CUR_DIR}/versions.sh
 
 ########################################################################
-
 # Clone the tree-sitter repos
 repos=( tree-sitter tree-sitter-python tree-sitter-c tree-sitter-cpp tree-sitter-java)
 
@@ -28,22 +27,24 @@ do
     dir="${INCLUDE_DIR}/${repo}"
 
     echo "clone or update ${repo}... "
-    LOCKED_BRANCH="${repo//-/_}_hash"
+    LOCKED_BRANCH=${repo//-/_}_hash
+    cd ${CUR_DIR}
     if [ -d "${dir}" ]; then
         echo "pulling changes ..."
-        # IF THE REPO ALREADY EXISTS...
+        # # IF THE REPO ALREADY EXISTS...
         pushd "${dir}"
 
         # PULL CHANGES
         git fetch
-        git reset --hard HEAD
-        git merge "origin/${LOCKED_BRANCH}"
+        git reset --hard ${!LOCKED_BRANCH}
 
-        popd
+        # popd
     else
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
-        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}" --branch "${LOCKED_BRANCH}"
+        git clone "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}"
+        cd ${dir}
+        git reset --hard ${!LOCKED_BRANCH}
     fi
 done
 
