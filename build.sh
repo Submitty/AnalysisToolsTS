@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+
 set -e
 
 echo "Building AnalysisToolsTS... "
@@ -10,6 +12,12 @@ INCLUDE_DIR=${CUR_DIR}/include
 
 mkdir -p "${BUILD_DIR}"
 mkdir -p "${INCLUDE_DIR}"
+
+########################################################################
+
+# These variables specify the minimum version necessary for
+# dependencies between versions.
+source ${CUR_DIR}/versions.sh
 
 ########################################################################
 
@@ -27,18 +35,16 @@ do
         # IF THE REPO ALREADY EXISTS...
         pushd "${dir}"
 
-        CURRENT_BRANCH=$(git branch --show-current)
-
         # PULL CHANGES
         git fetch
         git reset --hard HEAD
-        git merge "origin/${CURRENT_BRANCH}"
+        git merge "origin/${repo}_hash"
 
         popd
     else
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
-        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}"
+        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}" --branch ${repo}_hash
     fi
 done
 
