@@ -29,13 +29,12 @@ do
     dir="${INCLUDE_DIR}/${repo}"
 
     echo "clone or update ${repo}... "
-
+    LOCKED_BRANCH="${repo//-/_}_hash"
     if [ -d "${dir}" ]; then
         echo "pulling changes ..."
         # IF THE REPO ALREADY EXISTS...
         pushd "${dir}"
 
-        LOCKED_BRANCH=${repo//-/_}_hash
         # PULL CHANGES
         git fetch
         git reset --hard HEAD
@@ -43,10 +42,9 @@ do
 
         popd
     else
-        LOCKED_BRANCH=${repo//-/_}_hash
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
-        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}" --branch ${LOCKED_BRANCH}
+        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}" --branch "${LOCKED_BRANCH}"
     fi
 done
 
