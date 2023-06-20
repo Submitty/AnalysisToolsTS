@@ -29,7 +29,7 @@ do
     cd "${CUR_DIR}"
     if [ -d "${dir}" ]; then
         echo "pulling changes ..."
-        # # IF THE REPO ALREADY EXISTS...
+        # IF THE REPO ALREADY EXISTS...
         pushd "${dir}"
 
         # PULL CHANGES
