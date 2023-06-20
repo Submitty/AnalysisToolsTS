@@ -35,16 +35,18 @@ do
         # IF THE REPO ALREADY EXISTS...
         pushd "${dir}"
 
+        LOCKED_BRANCH = ${repo}_hash
         # PULL CHANGES
         git fetch
         git reset --hard HEAD
-        git merge "origin/${repo}_hash"
+        git merge "origin/${LOCKED_BRANCH}"
 
         popd
     else
+        LOCKED_BRANCH = ${repo}_hash
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
-        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}" --branch ${repo//-/_}_hash
+        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}" --branch ${LOCKED_BRANCH}
     fi
 done
 
