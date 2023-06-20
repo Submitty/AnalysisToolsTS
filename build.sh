@@ -42,8 +42,9 @@ do
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
         git clone "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}"
-        cd "${dir}"
+        pushd "${dir}"
         git reset --hard "${!LOCKED_BRANCH}"
+        popd
     fi
 done
 
