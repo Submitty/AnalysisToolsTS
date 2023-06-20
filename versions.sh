@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ########################################################################
 
 # These variables specify the version of these dependencies that we

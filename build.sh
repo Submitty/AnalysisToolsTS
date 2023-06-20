@@ -12,7 +12,6 @@ mkdir -p "${BUILD_DIR}"
 mkdir -p "${INCLUDE_DIR}"
 
 ########################################################################
-
 # These variables specify the minimum version necessary for
 # dependencies between versions.
 source "${CUR_DIR}"/versions.sh
