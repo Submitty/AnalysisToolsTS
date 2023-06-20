@@ -44,7 +44,7 @@ do
     else
         # THE REPO DID NOT EXIST
         echo "the repository did not previously exist cloning... "
-        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}" --branch ${repo}_hash
+        git clone --depth 1 "https://github.com/tree-sitter/${repo}" "${INCLUDE_DIR}/${repo}" --branch ${repo//-/_}_hash
     fi
 done
 
