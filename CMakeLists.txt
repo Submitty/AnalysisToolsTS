@@ -10,10 +10,10 @@ if(JSONDIR)
 endif()
 
 add_library(tree-sitter-python include/tree-sitter-python/src/parser.c
-                               include/tree-sitter-python/src/scanner.cc)
+                               include/tree-sitter-python/src/scanner.c)
 
 add_library(tree-sitter-cpp include/tree-sitter-cpp/src/parser.c
-                            include/tree-sitter-cpp/src/scanner.cc)
+                            include/tree-sitter-cpp/src/scanner.c)
 
 add_library(tree-sitter-c include/tree-sitter-c/src/parser.c)
 
