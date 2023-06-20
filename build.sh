@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-
-
 set -e
 
 echo "Building AnalysisToolsTS... "
@@ -17,7 +15,8 @@ mkdir -p "${INCLUDE_DIR}"
 
 # These variables specify the minimum version necessary for
 # dependencies between versions.
-source ${CUR_DIR}/versions.sh
+MY_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+source ${MY_PATH}/versions.sh
 
 ########################################################################
 
