@@ -9,8 +9,8 @@
 # of locking the version, adjust this to be versions instead of commits
 
 # TREE-SITTER REPOS
-# Python -- Merge pull request #193 from tree-sitter/tausbn/... -- Feb 28, 23
-export tree_sitter_python_hash=62827156d01c74dc1538266344e788da74536b8a
+# Python -- feat: rewrite the scanner in C -- June 23, 23
+export tree_sitter_python_hash=6ecc2b54b39ac390848d81dfcf5ee961f33a2f03
 # Tree-Sitter - Avoid unused value warning from array_pop -- Jun 14, 23
 export tree_sitter_hash=d0029a15273e526925a764033e9b7f18f96a7ce5
 # cpp -- Merge pull request #209 from amaanq/rewrite-it-in-c -- Jun 18, 23
