@@ -40,6 +40,12 @@ do
 
     echo "clone or update ${repo}... "
 
+    # TEMPORARY - workaround due to problem with the git repository
+    # just delete the directory and start over
+    echo "removing ${dir}"
+    rm -rf "${dir}"
+    # TEMPORARY
+
     if [ -d "${dir}" ]; then
         echo "pulling changes ..."
         # IF THE REPO ALREADY EXISTS...
