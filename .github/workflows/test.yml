@@ -11,7 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build executable
-      run: bash ./build.sh
+      run: |
+        cmake -S . -B build
+        cmake --build build --parallel "$(nproc)"
     - name: install dev dependencies
       run: python3 -m pip install -r requirements_dev.txt
     - name: run tests
