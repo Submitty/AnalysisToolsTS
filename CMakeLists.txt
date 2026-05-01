@@ -10,7 +10,6 @@ FetchContent_Declare(
     tree-sitter
     GIT_REPOSITORY https://github.com/tree-sitter/tree-sitter.git
     GIT_TAG        0535b0ca378a3f13a2b469f6c090a0c1b90904b7
-    GIT_SHALLOW    TRUE
 )
 
 FetchContent_GetProperties(tree-sitter)
@@ -27,7 +26,6 @@ function(fetch_and_build_ts_parser PARSER_NAME GIT_URL GIT_COMMIT)
         ${PARSER_NAME}
         GIT_REPOSITORY ${GIT_URL}
         GIT_TAG        ${GIT_COMMIT}
-        GIT_SHALLOW    TRUE
     )
     FetchContent_GetProperties(${PARSER_NAME})
     if(NOT ${PARSER_NAME}_POPULATED)
@@ -77,7 +75,6 @@ FetchContent_Declare(
     nlohmann_json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
     GIT_TAG        9a737481aed085fd289f82dff1fa8c3c66627a7e
-    GIT_SHALLOW    TRUE
 )
 FetchContent_MakeAvailable(nlohmann_json)
 
